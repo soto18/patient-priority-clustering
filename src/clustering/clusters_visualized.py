@@ -25,7 +25,7 @@ class ViewGroups:
         cluster_colors = {cluster: colormap(i) for i, cluster in enumerate(unique_clusters)}
 
         # Visualización con PCA
-        axes[0].set_title(f"Clusters visualized using PCA for {cluster_column}")
+        axes[0].set_title(f"Clusters visualized using PCA")
         for cluster in unique_clusters:
             cluster_data_pca = reduced_data_pca[self.df_labels[cluster_column] == cluster]
             axes[0].scatter(cluster_data_pca[:, 0], cluster_data_pca[:, 1], 
@@ -39,7 +39,7 @@ class ViewGroups:
         axes[0].grid(alpha=0.2)
 
         # Visualización con t-SNE
-        axes[1].set_title(f"Clusters visualized using t-SNE for {cluster_column}")
+        axes[1].set_title(f"Clusters visualized using t-SNE")
         for cluster in unique_clusters:
             cluster_data_tsne = reduced_data_tsne[self.df_labels[cluster_column] == cluster]
             axes[1].scatter(cluster_data_tsne[:, 0], cluster_data_tsne[:, 1], 
