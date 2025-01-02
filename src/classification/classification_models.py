@@ -1,25 +1,22 @@
 import warnings
 import numpy as np
 import pandas as pd
-warnings.filterwarnings("ignore")
-
 from sklearn.metrics import (
     precision_score, recall_score, f1_score, accuracy_score,
     matthews_corrcoef, confusion_matrix, roc_curve, auc, 
     precision_recall_curve)
-
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import (
     GradientBoostingClassifier, RandomForestClassifier,
     AdaBoostClassifier, ExtraTreesClassifier)
-
 from sklearn.model_selection import cross_validate
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.preprocessing import label_binarize
-
 from joblib import dump
+
+warnings.filterwarnings("ignore")
 
 class ClassificationModel:
 
@@ -78,29 +75,34 @@ class ClassificationModel:
         metrics_cv = self.__process_performance_cross_val(response_cv)
 
         # Curvas ROC y precisión-recall
-        fpr, tpr, roc_auc, precision, recall, ap_score = [None] * 6
+        roc_data, pr_data = [], []
         if probas is not None and y_true_binarized.shape[1] > 1:
-            fpr, tpr, roc_auc, precision, recall, ap_score = [], [], [], [], [], []
             for i in range(y_true_binarized.shape[1]):
-                fpr_i, tpr_i, _ = roc_curve(y_true_binarized[:, i], probas[:, i])
-                precision_i, recall_i, _ = precision_recall_curve(y_true_binarized[:, i], probas[:, i])
-                fpr.append(fpr_i)
-                tpr.append(tpr_i)
-                roc_auc.append(auc(fpr_i, tpr_i))
-                precision.append(precision_i)
-                recall.append(recall_i)
-                ap_score.append(auc(recall_i, precision_i))
+                fpr, tpr, _ = roc_curve(y_true_binarized[:, i], probas[:, i])
+                precision, recall, _ = precision_recall_curve(y_true_binarized[:, i], probas[:, i])
+                roc_data.append({"class": i, "fpr": fpr.tolist(), "tpr": tpr.tolist()})
+                pr_data.append({"class": i, "precision": precision.tolist(), "recall": recall.tolist()})
         elif probas is not None:
             fpr, tpr, _ = roc_curve(self.test_response, probas)
             precision, recall, _ = precision_recall_curve(self.test_response, probas)
-            roc_auc = auc(fpr, tpr)
-            ap_score = auc(recall, precision)
+            roc_data = [{"class": 0, "fpr": fpr.tolist(), "tpr": tpr.tolist()}]
+            pr_data = [{"class": 0, "precision": precision.tolist(), "recall": recall.tolist()}]
 
         # Matriz de confusión
-        conf_matrix = confusion_matrix(self.test_response, predictions).tolist()
+        conf_matrix = confusion_matrix(self.test_response, predictions)
+        conf_matrix_data = []
+        for i in range(conf_matrix.shape[0]):
+            for j in range(conf_matrix.shape[1]):
+                conf_matrix_data.append({"true_label": i, "predicted_label": j, "count": conf_matrix[i, j]})
 
+        # Almacenar métricas y datos gráficos
         metrics_row = [description] + metrics_cv + metrics_validation
-        graph_row = [description, fpr, tpr, roc_auc, precision, recall, ap_score, conf_matrix]
+        graph_row = {
+            "algorithm": description,
+            "roc_data": roc_data,
+            "pr_data": pr_data,
+            "conf_matrix": conf_matrix_data
+        }
 
         return metrics_row, graph_row
 
@@ -132,11 +134,7 @@ class ClassificationModel:
             'accuracy_val', 'precision_val', 'recall_val', 'f1_val', 'matthews_corrcoef_val', 'sensitivity'
         ]
 
-        graph_header = [
-            "algorithm", 'fpr', 'tpr', 'roc_auc', 'precision', 'recall', 'ap_score', 'conf_matrix'
-        ]
-
         df_summary = pd.DataFrame(data=metrics_matrix, columns=metrics_header)
-        df_graph_data = pd.DataFrame(data=graph_data_matrix, columns=graph_header)
+        df_graph_data = pd.DataFrame(graph_data_matrix)
 
         return df_summary, df_graph_data
