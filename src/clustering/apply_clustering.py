@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from scipy.stats import entropy
 from sklearn.cluster import (KMeans, DBSCAN, AgglomerativeClustering, 
@@ -66,8 +67,9 @@ class ClusteringAnalysis:
             except Exception as e:
                 print(f"Error with {description}: {e}")
 
-    def save_results(self, performance_path="performances.csv", labels_path="labels.csv"):
+    def save_results(self, export_path=None):
+        os.makedirs(export_path, exist_ok=True)
         df_performances = pd.DataFrame(self.results, columns=["description", "siluetas", "calinski", "davies", "entropy"])
-        df_performances.to_csv(performance_path, index=False)
-        self.df_labels.to_csv(labels_path, index=False)
-        print(f"\n** Results saved to {performance_path} and {labels_path} **")
+        df_performances.to_csv(f"{export_path}/performances.csv", index=False)
+        self.df_labels.to_csv(f"{export_path}/labels.csv", index=False)
+        print(f"\n** Results saved to {export_path} **")

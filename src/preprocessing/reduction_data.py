@@ -3,6 +3,7 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import os
 
 class DimensionalityReducer:
     def __init__(self, palette=None):
@@ -48,5 +49,6 @@ class DimensionalityReducer:
         axes[1].legend(loc="best")
                 
         if save_path:
-            plt.savefig(save_path)
+            os.makedirs(save_path, exist_ok=True)
+            plt.savefig(f"{save_path}/pca_tsne_panel.png")
         plt.show()

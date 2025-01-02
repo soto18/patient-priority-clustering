@@ -1,3 +1,4 @@
+import os
 import warnings
 import numpy as np
 import pandas as pd
@@ -35,6 +36,7 @@ class ClassificationModel:
 
         self.scores = ['f1_weighted', 'recall_weighted', 'precision_weighted', 'accuracy']
         self.keys = ['fit_time', 'score_time', 'test_f1_weighted', 'test_recall_weighted', 'test_precision_weighted', 'test_accuracy']
+        os.makedirs(self.folder_export, exist_ok=True)
 
     def __get_metrics(self, y_true, y_pred):
         accuracy = accuracy_score(y_true=y_true, y_pred=y_pred)
