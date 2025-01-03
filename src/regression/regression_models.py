@@ -49,6 +49,13 @@ class RegressionModel:
         model.fit(self.train_values, self.train_response)
         predictions = model.predict(self.test_values)
 
+        # Guardar predicciones
+        predictions_df = pd.DataFrame({
+            "real_values": self.test_response,
+            "predicted_values": predictions
+        })
+        predictions_df.to_csv(f"{self.folder_export}/{description.lower()}_predictions.csv", index=False)
+
         # Métricas de validación
         metrics_validation = self.__get_metrics(self.test_response, predictions)
 
@@ -59,6 +66,7 @@ class RegressionModel:
         # Almacenar métricas
         metrics_row = [description] + metrics_cv + metrics_validation
 
+        # Guardar el modelo entrenado
         dump(model, f"{self.folder_export}/{description.lower()}.joblib")
 
         return metrics_row
