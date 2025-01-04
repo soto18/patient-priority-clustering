@@ -15,7 +15,6 @@ from sklearn.ensemble import (
 from sklearn.model_selection import cross_validate
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.preprocessing import label_binarize
-from joblib import dump
 
 warnings.filterwarnings("ignore")
 
@@ -127,9 +126,8 @@ class ClassificationModel:
                 metrics_row, graph_row = self.__apply_model(clf_model, name)
                 metrics_matrix.append(metrics_row)
                 graph_data_matrix.append(graph_row)
-                dump(clf_model, f"{self.folder_export}/{name.lower()}.joblib")
             except Exception as e:
-                print(f"Error al entrenar o guardar el modelo {name}: {e}")
+                print(f"Error training {name}: {e}")
 
         metrics_header = [
             "algorithm", 'fit_time', 'score_time', 'F1_cv', 'recall_cv', 'precision_cv', 'accuracy_cv', 
