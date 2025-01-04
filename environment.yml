@@ -38,3 +38,7 @@ dependencies:
       - six==1.17.0
       - slicer==0.0.8
       - urllib3==2.3.0
+      - pandas
+      - scikit-learn
+      - matplotlib
+      - seaborn
