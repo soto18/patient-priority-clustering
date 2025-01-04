@@ -117,3 +117,20 @@ Key notebooks:
 
 Results, including confusion matrices and ROC curves, are available in `results/classification` and `results/regression`  
 
+---
+
+<a name="xai"></a>
+
+## Explainable AI (XAI)
+
+Explainable AI techniques provide insights into model decisions:  
+- Feature Importance Visualization using SHAP.  
+- Counterfactual Explanations to enhance interpretability.  
+
+Key notebooks:  
+- SHAP Analysis: [`14_xai_shap_analysis.ipynb`](notebook/14_xai_shap_analysis.ipynb)  
+- Counterfactual Exploration: [`15_xai_counterfactuals_exploring.ipynb`](notebook/15_xai_counterfactuals_exploring.ipynb)  
+
+XAI visualizations are stored in the folder `results/xai`  
+
+
