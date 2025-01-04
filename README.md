@@ -9,7 +9,7 @@ This repository contains the source files and supplementary information for the 
 - [Summary of proposed work](#summary)
 - [Requirements and setup](#requirements)
 - [Raw Data and preprocessing](#data)
-- [Clustering and dimensionality reduction](#clustering)
+- [Clustering and cluster visualization](#clustering)
 - [Classification and regression models](#models)
 - [Explainable AI (XAI)](#xai)
 - [Implemented Pipeline](#pipeline)
@@ -98,6 +98,29 @@ Key notebooks:
 - Clustering analysis: [`08_clustering_analysis.ipynb`](notebook/08_clustering_analysis.ipynb).  
 
 Visualizations are available in the `results/clustering` folder.
+
+---
+
+<a name="models"></a>
+
+## Classification and Regression Models
+
+The project implements multiclass classification and regression models for the "blood pressure" descriptor:  
+- **Classification Algorithms**: SVC, KNN, DecisionTree, RandomForest, AdaBoost, GradientBoosting, and ExtraTrees  
+- **Regression Algorithms**: LinearRegression, ElasticNet, DecisionTree, RandomForestRegressor, GradientBoostingRegressor, and SVR  
+
+### Notebooks
+
+- **Classification Model Training**: [`10_apply_classification_model.ipynb`](notebook/10_apply_classification_model.ipynb)  
+- **Classification Model Analysis**: [`11_classification_analysis.ipynb`](notebook/11_classification_analysis.ipynb)  
+- **Regression Model Training**: [`12_apply_regression_model.ipynb`](notebook/12_apply_regression_model.ipynb)  
+- **Regression Model Analysis**: [`13_regression_analysis.ipynb`](notebook/13_regression_analysis.ipynb)  
+
+### Results
+
+Results, including confusion matrices and ROC curves, are available in `results/classification` and `results/regression`  
+
+
 
 
 
