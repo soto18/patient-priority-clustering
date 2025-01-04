@@ -12,7 +12,6 @@ This repository contains the source files and supplementary information for the 
 - [Clustering and cluster visualization](#clustering)
 - [Classification and regression models](#models)
 - [Explainable AI (XAI)](#xai)
-- [Implemented Pipeline](#pipeline)
 
 ---
 
@@ -78,20 +77,8 @@ Processed datasets are saved in the `results/preprocessing` folder.
 ## Clustering and cluster visualization with dimensionality reduction
 
 Clustering methods were explored to group patients based on similarities:  
-- **Algorithms Applied:**  
-  - K-Means (`n_clusters=4`)  
-  - MiniBatch K-Means (`n_clusters=4`)  
-  - Agglomerative Clustering (`n_clusters=4`)  
-  - Birch (`n_clusters=4`)  
-  - Spectral Clustering (`n_clusters=4`)  
-  - DBSCAN  
-  - OPTICS  
-  - MeanShift  
-  - Affinity Propagation  
-
-- **Dimensionality Reduction Techniques:**  
-  - PCA  
-  - t-SNE  
+- Algorithms applied: K-Means (`n_clusters=4`), MiniBatch K-Means (`n_clusters=4`), Agglomerative Clustering (`n_clusters=4`), Birch (`n_clusters=4`), Spectral Clustering (`n_clusters=4`), DBSCAN  , OPTICS, MeanShift and Affinity Propagation  
+- Dimensionality reduction techniques: PCA and t-SNE  
 
 Key notebooks:  
 - Clustering application: [`07_apply_clustering.ipynb`](notebook/07_apply_clustering.ipynb).  
