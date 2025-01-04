@@ -1,4 +1,4 @@
-# Patient priority analysis using achine Learning and Explainable AI
+# Patient priority analysis using Machine Learning and Explainable AI
 
 This repository contains the source files and supplementary information for the development and evaluation of machine learning models to analyze patient prioritization using clustering and classification strategies. The project integrates preprocessing techniques, feature scaling, clustering, classification, regression, and Explainable AI (XAI).
 
@@ -72,4 +72,32 @@ conda activate patient-priority
 Processed datasets are saved in the `results/preprocessing` folder.
 
 ---
+
+<a name="clustering"></a>
+
+## Clustering and cluster visualization with dimensionality reduction
+
+Clustering methods were explored to group patients based on similarities:  
+- **Algorithms Applied:**  
+  - K-Means (`n_clusters=4`)  
+  - MiniBatch K-Means (`n_clusters=4`)  
+  - Agglomerative Clustering (`n_clusters=4`)  
+  - Birch (`n_clusters=4`)  
+  - Spectral Clustering (`n_clusters=4`)  
+  - DBSCAN  
+  - OPTICS  
+  - MeanShift  
+  - Affinity Propagation  
+
+- **Dimensionality Reduction Techniques:**  
+  - PCA  
+  - t-SNE  
+
+Key notebooks:  
+- Clustering application: [`07_apply_clustering.ipynb`](notebook/07_apply_clustering.ipynb).  
+- Clustering analysis: [`08_clustering_analysis.ipynb`](notebook/08_clustering_analysis.ipynb).  
+
+Visualizations are available in the `results/clustering` folder.
+
+
 
